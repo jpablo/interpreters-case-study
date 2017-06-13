@@ -1,0 +1,21 @@
+{
+  "name": "sfdc-gateway-scala",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "webpack": "^2.2.1"
+  },
+  "dependencies": {
+    "@types/request": "0.0.41",
+    "jsforce": "^1.7.1",
+    "request": "^2.81.0",
+    "ssl-root-cas": "^1.2.3"
+  }
+}
