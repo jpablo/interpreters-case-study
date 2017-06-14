@@ -3,13 +3,11 @@ package HttpClient
 import cats.free.Free
 import fr.hmil.roshttp.HttpRequest
 import HttpClient.Config.sourceConfig.URLs
-import HttpClient.SourceService.TastyPieResponse
-import io.circe.Decoder
+import HttpClient.Models.TastyPieResponse
+import io.circe.{Decoder, Json}
 import io.circe.generic.auto._
 import io.circe.parser._
 import monix.eval.Task
-
-import scala.scalajs.js.JSApp
 import scala.util.{Failure, Success, Try}
 
 object FreeProgram {
@@ -54,7 +52,7 @@ object FreeProgram {
 
 }
 
-object FakeInterpreter extends JSApp {
+object FakeInterpreter extends App {
   import FreeProgram._
   import cats.{Id, ~>}
 
@@ -81,21 +79,15 @@ object FakeInterpreter extends JSApp {
 }
 
 
-object TaskInterpreter extends JSApp {
+object TaskInterpreter extends App {
   import FreeProgram._
   import cats._
   import monix.cats._
-  import HttpClient.extraDecoders.dynamicDecoder
   import monix.execution.Scheduler.Implicits.global
-
-  import scala.scalajs.js.Dynamic
-
 
   def main(): Unit = {
 
-    trustCerts()
-
-    val program = getRecentResources[Dynamic]("practices", "2017-06-11")
+    val program = getRecentResources[Json]("practices", "2017-06-11")
 
     program.foldMap(taskInterpreter) runOnComplete {
       case Success(v) => println(v)

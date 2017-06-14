@@ -6,12 +6,10 @@ import cats.implicits._
 import fr.hmil.roshttp.HttpRequest
 import HttpClient.Config.sourceConfig.URLs
 import HttpClient.FinalTagless.RecentResources
-import HttpClient.SourceService.TastyPieResponse
-import io.circe.Decoder
+import HttpClient.Models.TastyPieResponse
+import io.circe.{Decoder, Json}
 import io.circe.generic.auto._
 import io.circe.parser._
-
-import scala.scalajs.js.{Dynamic, JSApp}
 import scala.util.{Failure, Success, Try}
 
 object FinalTagless {
@@ -44,18 +42,15 @@ object FinalTagless {
   }
 }
 
-object TaglessInterpreter extends JSApp {
+object TaglessInterpreter extends App {
   import HttpClient.FinalTagless.MyServiceAlg
   import monix.execution.Scheduler.Implicits.global
   import monix.eval.Task
   import monix.cats._
-  import HttpClient.extraDecoders.dynamicDecoder
 
   def main(): Unit = {
 
-    trustCerts()
-
-    lazy val result = new RecentResources(TaskInterpreter).getRecentResources[Dynamic]("practices", "2017-06-11")
+    lazy val result = new RecentResources(TaskInterpreter).getRecentResources[Json]("practices", "2017-06-11")
 
     result runOnComplete {
       case Success(v) => println(v)

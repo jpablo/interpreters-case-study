@@ -1,9 +1,6 @@
 package HttpClient
 
-import scala.scalajs.js
-import scala.scalajs.js.annotation.JSName
-
-object SourceService {
+object Models {
 
   case class Meta(
     limit          : Int,
@@ -14,6 +11,4 @@ object SourceService {
   )
 
   case class TastyPieResponse[A](meta: Meta, objects: List[A])
-
-
 }

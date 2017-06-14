@@ -2,14 +2,13 @@ package HttpClient
 
 import fr.hmil.roshttp.HttpRequest
 import HttpClient.Config.sourceConfig.URLs
-import HttpClient.SourceService.TastyPieResponse
-import io.circe.Decoder
+import HttpClient.Models.TastyPieResponse
+import io.circe.{Decoder, Json}
 import io.circe.parser.decode
 import io.circe.generic.auto._
 import io.circe.parser._
 import io.circe.syntax._
 import monix.eval.Task
-import scala.scalajs.js.JSApp
 import scala.util.{Failure, Success, Try}
 import monix.execution.Scheduler.Implicits.global
 
@@ -47,16 +46,13 @@ object Direct {
     }
 }
 
-object DirectApp extends JSApp {
+object DirectApp extends App {
+
   import Direct.getRecentResources
-  import HttpClient.extraDecoders.dynamicDecoder
-  import scala.scalajs.js.Dynamic
 
   def main(): Unit = {
 
-    trustCerts()
-
-    val program = getRecentResources[Dynamic]("practices", "2017-06-11")
+    val program = getRecentResources[Json]("practices", "2017-06-11")
 
     program runOnComplete {
       case Success(v) => println(v)
