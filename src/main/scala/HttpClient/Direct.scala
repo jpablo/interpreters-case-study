@@ -1,8 +1,8 @@
-package gateway
+package HttpClient
 
 import fr.hmil.roshttp.HttpRequest
-import gateway.Config.sourceConfig.URLs
-import gateway.SourceService.TastyPieResponse
+import HttpClient.Config.sourceConfig.URLs
+import HttpClient.SourceService.TastyPieResponse
 import io.circe.Decoder
 import io.circe.parser.decode
 import io.circe.generic.auto._
@@ -18,9 +18,9 @@ object Direct {
 
   // basic operation
 
-  def fetch(resource: String, params: Map[String, Any]): Task[String] = {
-    val url = s"${Config.sourceConfig.host}$resource"
-    val request = HttpRequest(url)
+  def fetch(path: String, params: Map[String, Any]): Task[String] = {
+
+    val request = HttpRequest(s"${Config.sourceConfig.host}$path")
       .withQueryParameters(params.mapValues(_.toString).toList: _*)
       .withHeader("Authorization", Config.sourceConfig.API_AUTHORIZATION_HEADER)
 
@@ -49,7 +49,7 @@ object Direct {
 
 object DirectApp extends JSApp {
   import Direct.getRecentResources
-  import gateway.extraDecoders.dynamicDecoder
+  import HttpClient.extraDecoders.dynamicDecoder
   import scala.scalajs.js.Dynamic
 
   def main(): Unit = {

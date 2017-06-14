@@ -1,4 +1,4 @@
-package gateway
+package HttpClient
 
 import io.circe.{Decoder, DecodingFailure, HCursor}
 import io.circe.generic.auto._

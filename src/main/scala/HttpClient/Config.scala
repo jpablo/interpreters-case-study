@@ -1,4 +1,4 @@
-package gateway
+package HttpClient
 
 import scala.scalajs.js
 import scala.scalajs.js.annotation.JSName

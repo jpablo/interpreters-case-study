@@ -3,7 +3,7 @@ import scala.scalajs.js.annotation.JSImport
 
 
 
-package object gateway {
+package object HttpClient {
   // JS: `const https = require('https');`
   @js.native
   @JSImport("https", JSImport.Namespace)

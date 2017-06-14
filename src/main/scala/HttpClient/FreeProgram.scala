@@ -1,9 +1,9 @@
-package gateway
+package HttpClient
 
 import cats.free.Free
 import fr.hmil.roshttp.HttpRequest
-import gateway.Config.sourceConfig.URLs
-import gateway.SourceService.TastyPieResponse
+import HttpClient.Config.sourceConfig.URLs
+import HttpClient.SourceService.TastyPieResponse
 import io.circe.Decoder
 import io.circe.generic.auto._
 import io.circe.parser._
@@ -85,7 +85,7 @@ object TaskInterpreter extends JSApp {
   import FreeProgram._
   import cats._
   import monix.cats._
-  import gateway.extraDecoders.dynamicDecoder
+  import HttpClient.extraDecoders.dynamicDecoder
   import monix.execution.Scheduler.Implicits.global
 
   import scala.scalajs.js.Dynamic

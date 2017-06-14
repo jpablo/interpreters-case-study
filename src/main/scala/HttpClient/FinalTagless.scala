@@ -1,12 +1,12 @@
-package gateway
+package HttpClient
 
 import cats.Monad
 import cats.data._
 import cats.implicits._
 import fr.hmil.roshttp.HttpRequest
-import gateway.Config.sourceConfig.URLs
-import gateway.FinalTagless.RecentResources
-import gateway.SourceService.TastyPieResponse
+import HttpClient.Config.sourceConfig.URLs
+import HttpClient.FinalTagless.RecentResources
+import HttpClient.SourceService.TastyPieResponse
 import io.circe.Decoder
 import io.circe.generic.auto._
 import io.circe.parser._
@@ -45,11 +45,11 @@ object FinalTagless {
 }
 
 object TaglessInterpreter extends JSApp {
-  import gateway.FinalTagless.MyServiceAlg
+  import HttpClient.FinalTagless.MyServiceAlg
   import monix.execution.Scheduler.Implicits.global
   import monix.eval.Task
   import monix.cats._
-  import gateway.extraDecoders.dynamicDecoder
+  import HttpClient.extraDecoders.dynamicDecoder
 
   def main(): Unit = {
 
